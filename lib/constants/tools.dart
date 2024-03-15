@@ -1,3 +1,4 @@
+import 'package:academia/tools/repairs/repairs_page.dart';
 import 'package:get/get.dart';
 import 'package:academia/exports/barrel.dart';
 
@@ -150,5 +151,15 @@ final List<Map<String, dynamic>> allTools = [
     },
     "description":
         "Having trouble keeping track of your Assignments? We've got you covered",
-  }
+  },
+  {
+    "id": 10,
+    "name": "Laptop Repairs",
+    "action": "Laptop Repairs",
+    "image": "assets/images/screen.jpg",
+    "ontap": () {
+      Get.to(RepairsPage());
+    },
+    "description": "Having trouble with your laptop? We've got you covered",
+  },
 ];
