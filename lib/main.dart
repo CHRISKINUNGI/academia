@@ -10,26 +10,24 @@ void main() async {
   Hive.registerAdapter(ScheduleAdapter());
   Hive.registerAdapter(CoursesAdapter());
   Hive.registerAdapter(TaskAdapter());
+  Hive.registerAdapter(ExamAdapter());
   appDB = await Hive.openBox(dbName);
 
-  bool isLoggedIn = false;
-  if (appDB.containsKey("user")) {
-    user = await appDB.get("user");
-    isLoggedIn = true;
-    magnet = Magnet(user.admno!, user.password!);
-  }
-
   // Init settings controller
+  final userController = Get.put(UserController());
   Get.put(SettingsController());
-  Get.put(NotificationsController());
+  //Get.put(NotificationsController());
 
   // Init TasksManager controller
   Get.put(TaskManagerController());
 
   runApp(
     GetMaterialApp(
-      home: isLoggedIn ? const HomePage() : const IntroPage(),
+      home: userController.isLoggedIn.value
+          ? const HomePage()
+          : const IntroPage(),
       theme: lightModeTheme,
+      darkTheme: darkModeTheme,
     ),
   );
 }

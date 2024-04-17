@@ -1,5 +1,7 @@
 export 'package:flutter/material.dart';
+export 'package:academia/models/exam.dart';
 export 'package:academia/constants/common.dart';
+export 'package:ionicons/ionicons.dart';
 export 'package:academia/widgets/academia_app_bar.dart';
 export 'package:academia/controllers/notifications_controller.dart';
 export 'package:percent_indicator/percent_indicator.dart';
@@ -52,5 +54,7 @@ export 'package:academia/pages/tasks_pages/edittask_page.dart';
 export 'package:academia/pages/tasks_pages/newtask_page.dart';
 export 'package:academia/pages/tasks_pages/taskinfo_page.dart';
 export 'package:magnet/src/magnet_utils.dart';
+export 'package:magnet/src/magnet_exams.dart';
 export 'package:academia/tools/time_line/time_line_page.dart';
 export 'package:academia/tools/stories/notifications_story_page.dart';
+export 'package:academia/controllers/controllers.dart';

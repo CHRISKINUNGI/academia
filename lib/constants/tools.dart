@@ -4,6 +4,18 @@ import 'package:academia/exports/barrel.dart';
 
 final List<Map<String, dynamic>> allTools = [
   {
+    "id": 8,
+    "name": "Exam Timetable",
+    "action": "Show exam timetable",
+    "image": "assets/images/exam_timetable.png",
+    "ontap": () {
+      Get.to(const ExamTimeTablePage());
+    },
+    "description":
+        "Exams around the corner? Don't panic we've got you covered with the timetable",
+  },
+
+  {
     "id": 1,
     "name": "GPA Calculator",
     "action": "Calculate GPA",
@@ -19,8 +31,14 @@ final List<Map<String, dynamic>> allTools = [
     "image": "assets/images/grade.png",
     "action": "Visit Elearning",
     "ontap": () {
-      Get.to(const WebviewPage(
-          title: "Elearning", url: "https://elearning.daystar.ac.ke"));
+      Platform.isIOS || Platform.isAndroid
+          ? Get.to(const WebviewPage(
+              title: "Elearning", url: "https://elearning.daystar.ac.ke"))
+          : showCustomSnackbar(
+              "Missing Feature",
+              "Please use a mobile phone to access this service since it isn't supported on desktop",
+              icon: Icons.error,
+            );
     },
     "description":
         "Psst! Elearning is here for you. Keep track of your assignments and notes!",
@@ -33,9 +51,11 @@ final List<Map<String, dynamic>> allTools = [
     "ontap": () async {
       var controller = Get.find<SettingsController>();
       if (!controller.showFees.value) {
-        showCustomSnackbar("Tool locked",
-            "Fees functionality is locked in the settings page, please unlock it to view your fees statement",
-            icon: Icons.lock);
+        showCustomSnackbar(
+          "Tool locked",
+          "Fees functionality is locked in the settings page, please unlock it to view your fees statement",
+          icon: Icons.lock,
+        );
       } else {
         try {
           var statements = await magnet.fetchFeeStatement();
@@ -87,10 +107,11 @@ final List<Map<String, dynamic>> allTools = [
           icon: Icons.lock,
         );
       } else {
+        final UserController userController = Get.find<UserController>();
         Get.to(PdfViewer(
           title: "Your audit",
           url:
-              "https://student.daystar.ac.ke/Downloads/STDAUDIT-${user.admno}.pdf",
+              "https://student.daystar.ac.ke/Downloads/STDAUDIT-${userController.user.value!.admno}.pdf",
         ));
       }
     },
@@ -110,10 +131,11 @@ final List<Map<String, dynamic>> allTools = [
           icon: Icons.lock,
         );
       } else {
+        final UserController userController = Get.find<UserController>();
         Get.to(PdfViewer(
           title: "Your Transcript",
           url:
-              "https://student.daystar.ac.ke/Downloads/PROVISIONAL%20RESULTS-${user.admno}.pdf",
+              "https://student.daystar.ac.ke/Downloads/PROVISIONAL%20RESULTS-${userController.user.value!.admno}.pdf",
         ));
       }
     },
@@ -129,17 +151,6 @@ final List<Map<String, dynamic>> allTools = [
     },
     "description":
         "Curious to know how many classes you have missed this semester, this might be the tool",
-  },
-  {
-    "id": 8,
-    "name": "Exam Timetable",
-    "action": "Show exam timetable",
-    "image": "assets/images/exam_timetable.png",
-    "ontap": () {
-      Get.to(const ExamTimeTablePage());
-    },
-    "description":
-        "Exams around the corner? Don't panic we've got you covered with the timetable",
   },
   {
     "id": 9,
